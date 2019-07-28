@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% block body %}
+
+ 		<h1>Login Page </h1>
+ 		{% if current_user.is_authenticated %}
+ 		<a href="{{url_for('search_page')}}"> search </a>
+ 		{% else %}
+
+ 		<h3> Login as a Patient: </h3>
+ 		<form action="{{ url_for('login')}}" method="POST">
+     		Username: <input type="text" class="textboxes" name="name">
+     		Password: <input type="password" class="textboxes" name="password">
+    			<button type="submit">Login</button>
+    		<br>
+    		{{messagePatient}}
+ 		</form>
+ 
+ 		<h3> Login as a Provider: </h3>
+ 		<form action="{{ url_for('login_provider')}}" method="POST">
+     		Username: <input type="text" class="textboxes" name="name">
+     		Password: <input type="password" class="textboxes" name="password">
+    			<button type="submit">Login</button>
+    		<br>
+    		{{messageProvider}}
+ 		</form>
+
+ 		{% endif %}
+
+ {% endblock %}

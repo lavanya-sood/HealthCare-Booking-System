@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block body %}
+
+ <h1>{{name}}'s Appointments </h1>
+
+    {% if current_user.is_admin() == true %}
+    <ul>
+        <li><a href="{{ url_for('admin_appointments_currentpage')}}">Current Appointments</a></li>
+        <li><a href="{{ url_for('admin_appointments_pastpage')}}">Past Appointments</a></li>
+    </ul>
+    {% else %}
+    <ul>
+        <li><a href="{{ url_for('patient_appointments_currentpage')}}">Current Appointments</a></li>
+        <li><a href="{{ url_for('patient_appointments_pastpage')}}">Past Appointments</a></li>
+    </ul>
+    {% endif %}
+
+
+    <br>
+    <br>
+    <table>
+                <tr>
+
+                    {% if current_user.is_admin() == true %}
+
+                        <td>
+                            <strong>Patient</strong>
+                        </td>
+
+                    {% else %}
+
+                        <td>
+                            <strong>Provider</strong>
+                        </td>
+
+                    {% endif %}
+
+                    <td>
+                        <strong>Date (yyyy/mm/dd)</strong>
+                    </td>
+                    <td>
+                    	<strong>Time</strong>
+                    </td>
+                    <td>
+                    	<strong>Centre</strong>
+                    </td>
+
+
+                    <td>
+                    	<strong>Additional Comments</strong>
+                    </td>
+
+                    {% if current_user.is_admin() == true %}
+                        <td>
+                            <strong>View Profile</strong>
+                        </td>
+                        <td>
+                            <strong>View History</strong>
+                        </td>
+                    {% if currstat %}
+                        <td>
+                            <strong>Start Appointment</strong>
+                        </td>
+                    {% endif %}
+                    {% endif %}
+                </tr>
+        {%for i in book%}
+                <tr>
+                    {% if current_user.is_admin() == true %}
+
+                        <td>
+                            {{i.book_patient}}
+                        </td>
+
+                    {% else %}
+
+                        <td>
+                            {{i.book_provider}}
+                        </td>
+
+                    {% endif %}
+
+                    <td>
+                        {{i.book_date}}
+                    </td>
+                    <td>
+                    	{{i.book_time}}
+                    </td>
+                    <td>
+                    	{{i.book_centre}}
+                    </td>
+
+
+                    <td>
+                    	{{i.book_comments}}
+                    </td>
+
+                    {%if current_user.is_admin() == true %}
+
+                    <td>
+                        <a href="{{url_for('view_patient_profile_admin',name=i.book_patient)}}"> Patient profile </a>
+                        <br>
+                    </td>
+                    <td>
+                        <a href="{{url_for('patient_history',name=i.book_patient)}}"> Patient history </a>
+                        <br>
+                    </td>
+                    {% if currstat %}
+                    <td>
+                        <button class="button"><a href="{{url_for('consultation_page',idno=i.book_id,patient=i.book_patient)}}"> Start </a>
+                        <br></button>
+                    </td>
+                    {% endif %}
+                    {%endif%}
+
+
+                </tr>
+        {%endfor%}
+    </table>
+
+{% endblock %}
+

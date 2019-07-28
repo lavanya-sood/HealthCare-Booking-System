@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+{% block body %}
+ <h1> {{centre.get_name()}} </h1>
+    <table>
+        <tr><td><strong>Type</strong></td><td>{{centre.get_typeof()}}</td></tr>
+        <tr><td><strong>Number</strong></td><td>{{centre.get_number()}}</td></tr>
+        <tr><td><strong>Location</strong></td><td>{{centre.get_location()}}</td></tr>
+            {% if current_user.is_admin() == False%}
+        <tr>
+            <td><strong>Rating</strong></td>
+            <td>{{current_rating}} out of 5 ({{len_of_ratings}} users have rated)</td>
+        </tr>
+            {% endif %}
+    </table>
+
+
+    <br>
+    <br>
+    <strong>Working Providers at {{centre.get_name()}}</strong>
+    <br>
+
+    <table>
+    <tr>
+        <td><strong>Name</strong></td>
+        <td><strong>Speciality</strong></td>
+    </tr>
+
+    {%for i in workingProviders%}
+    <tr>
+        <td>{{i.get_name()}}</td>
+        <td>{{i.get_speciality()}}</td>
+        <td> <a href="{{url_for('view_profile_provider',name=i.get_name())}}"> View provider profile. </a>
+        <br>
+        </td>
+    </tr>
+    {%endfor%}
+
+    </table>
+
+    <br>
+    <button class = "button" id="book_button" type="submit"><a href="{{url_for('book_page', name=centre.get_name())}}"> Book an appointment with this centre </a></button>
+    <br>
+    <br>
+    <button class = "button" type="submit"><a href="{{url_for('search_page')}}"> Back to Search page </a></button>
+    <br>
+    <br>
+    {% if current_user.is_admin() == False%}
+        <button class = "button"> <a href="{{url_for('give_rating_centre',name=centre.get_name())}}">  Give Rating </a> </button>
+    {% endif %}
+ {% endblock %}
+
+

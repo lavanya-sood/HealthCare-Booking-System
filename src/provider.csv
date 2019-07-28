@@ -1,0 +1,12 @@
+provider_email,password,name,phone,provider_type,idno
+toby@gmail.com,cs1531,Toby Weathers,23435212,Pathologist,01
+gary@gmail.com,cs1531,Gary Summers,234352311,GP,02
+samuel@gmail.com,cs1531,Samuel Jackson,65652321,GP,03
+sid@gmail.com,cs1531,Sid Jordan,76542431,Pathologist,04
+michael@gmail.com,cs1531,Michael Grayson,65341243,Physiotherapist,05
+anna@gmail.com,cs1531,Anna Kent,65341254,GP,06
+thomas@gmail.com,cs1531,Thomas Wayne,45324365,Pharmacist,07
+ian@gmail.com,cs1531,Ian Matthews,76452343,Physiotherapist,08
+laurel@gmail.com,cs1531,Laurel Queen,56574324,Cardiologist,09
+barbara@gmail.com,cs1531,Barbara Drake,65753421,Cardiologist,10
+helena@gmail.com,cs1531,Helena Jones,45645231,GP,11

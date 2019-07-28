@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% block body %}
+<div id="notes">
+	<h1>{{name}}'s History</h1>
+	<table>
+		<tr>
+			<td><strong>Date</strong></td>
+			<td><strong>Doctor</strong></td>
+			<td><strong>At Centre</td>
+			<td><strong>Notes</strong></td>
+			<td><strong>Prescribed Medicines</strong></td>
+		</tr>
+		{% for h in history%}
+		<tr>
+			<td>{{h.get_date()}}</td>
+			<td>{{h.get_provider()}}</td>
+			<td>{{h.get_centre()}}</td>
+			<td>{{h.get_notes()}}</td>
+			<td>{{h.get_prescription()}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+{%endblock%}

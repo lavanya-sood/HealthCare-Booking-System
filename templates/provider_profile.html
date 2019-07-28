@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+{% block body %}
+ <h1> {{provider.get_name()}} </h1>
+    <table>
+
+        <tr>
+            <td><strong>Email</strong></td>
+            <td>{{provider.username}}</td>
+                </tr>
+        <tr>
+            <td><strong>Phone Number</strong></td>
+            <td>{{provider.get_number()}}</td>
+        </tr>
+        <tr>
+            <td><strong>Speciality</strong></td>
+            <td>{{provider.get_speciality()}}</td>
+        </tr>
+        <tr>
+            <td><strong>Rating</strong></td>
+            <td>{{current_rating}} out of 5 ({{len_of_ratings}} users have rated)</td>
+        </tr>
+        <tr>
+            <td><strong>Works at</strong></td>
+            <td>
+                {%for i in workingCentres%}
+                {{i}}
+                <a href="{{url_for('view_profile',name=i)}}">(View centre profile) </a>
+                <br>
+                {%endfor%}
+            </td>
+        </tr>
+
+        {%if current_user.is_admin()%}
+        <tr>
+            <td><strong>ID number</strong></td>
+            <td>{{provider.get_idno()}}</td>
+        </tr>
+        {%endif%}
+
+    </table>
+    <br>
+    <br>
+    {% if current_user.is_admin() == False%}
+        <button class = "button"> <a href="{{url_for('give_rating_provider',name=provider.get_name())}}">  Give Rating </button>
+    {% else %}
+        <button class = "button" type="submit"><a href="{{url_for('edit_profile_provider', name=provider.get_name())}}"> Edit profile </a></button>
+
+    {% endif %}
+
+
+ {% endblock %}
+

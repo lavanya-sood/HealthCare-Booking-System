@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="consultation_page">
+
+	{% if donestatus == False %}
+	<h1>Your session has started...</h1>
+	{{patient}}
+	{{idno}}
+
+	{%for i in bookings%}
+		{{i.book_id}}
+	{%endfor%}
+		<form action ="{{url_for('consultation_page',idno=idno)}}" method="POST" onsubmit="processSubmit()">
+
+			<br>
+			Comments:
+			</br>
+				<textarea class = "textarea" name="comments" placeholder="Please type here" cols=50 rows=10></textarea>
+			</br>
+			<br>
+			Perscription:<input type="text" name="perscription" required>
+			<br>
+			</br>
+
+			<br>
+
+		<button type="submit" class="button" id="end-button" href="{{url_for('consultation_page',idno=idno)}}"> End consultation</a></button>
+
+		<script>
+		function processSubmit() {
+			alert("Your consultation has ended!");
+		}
+		</script>
+
+		</form>
+
+	{% endif %}
+
+		<br>
+		{% if donestatus %}
+			<button type="submit" class="button"> <a href="{{ url_for('admin_appointments_page')}}"> Back to appointments </a></button>
+		{% endif %}
+	
+</div>
+
+{% endblock %}

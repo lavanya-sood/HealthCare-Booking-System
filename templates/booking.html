@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% block body %}
+
+<div class="booking_page">
+	<h1> Booking Page </h1>
+		<form action ="{{url_for('book_page')}}" method="POST">
+
+<!-- Healthcare providers and centres -->
+			Select Healthcare centre you wish to book with:
+				<select class="styled-select slate" name="healthcare_centres" required>
+						<option value="">--Please select a healthcare--</option>
+						{% for i in centre_names %}
+	    					<option value="{{ i }}">{{ i }}</option>
+	    				{% endfor %}
+				</select> 
+
+			</br> 
+			<br>
+
+		<button type="submit" class="button" href="{{url_for('book_page_part2')}}"> Next </a></button>
+
+	</form>
+</div>
+
+
+{%endblock%}

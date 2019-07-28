@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<style>
+			body,html{
+				height: 100%;
+				background: #E0FFFF;
+				font-family: 'Georgia', serif;
+			}
+
+			#mainhead {
+				font-size: 50px;
+				font-weight: bold;
+				text-align: center;
+				color:#191970;
+			}
+
+
+
+			#searching_condition {
+				text-align: center;
+				display: block;
+				 
+			}
+
+			.button {
+			    background-color: #1E90FF; 
+			    border: none;
+			    color: white;
+			    padding: 10px 20px;
+			    text-align: center;
+			    text-decoration: none;
+			    display: inline-block;
+			    border-radius: 12px;
+			    font-size: 16px;
+			}
+
+			.button:hover {
+			    background-color: #000080; /* Green */
+			    color: white;
+			}
+
+			.styled-select select {
+				background: transparent;
+			   font-size: 14px;
+			   height: 29px;
+			   padding: 5px;
+			   width: 268px;
+			}
+
+			.styled-select.slate {
+				background-color: #F0FFFF;
+				border: 1px solid #000000;
+			    height: 25px;
+			    width: 20%;
+			}
+			
+			.textboxes {
+			 	width:15%;
+			    padding: 12px 20px;
+			    margin: 8px 0;
+			    box-sizing: border-box;
+			    border: 2px solid black;
+    			border-radius: 4px;
+			    background-color: #F0FFFF;
+    			color: black;
+			}
+
+			a.button {
+			    -webkit-appearance: button;
+			    -moz-appearance: button;
+			    appearance: button;
+			    text-decoration: none;
+			    color: initial;
+			    background: transparent;
+			    background-color: #1E90FF; 
+			    border: none;
+			    color: black;
+			}
+			
+			#logout {
+				margin-top:-10%;
+			}
+			
+
+			table {
+    			border-collapse: collapse;
+    			width: 100%;
+    			text-align: center;
+			}
+
+			td, th {
+				border: 1px solid #000000;
+				text-align: left;
+				padding: 8px;
+			}
+
+			ul {
+		        list-style-type: none;
+		        margin: 0;
+		        padding: 0;
+		        overflow: hidden;
+		        border: 1px solid #e7e7e7;
+		        background-color: #00008B;
+		        color: white;
+		    }
+
+			
+		    li {
+		        float: left;
+		    }
+			
+
+		    li a {
+		        display: block;
+		        color: white;
+		        text-align: center;
+		        padding: 14px 16px;
+		        text-decoration: none;
+		    }
+
+		    li a:hover:not(.active) {
+		        background-color: #1E90FF;
+		        color: white;
+		    }
+
+		    li a.active {
+		        color: white;
+		        background-color: #1E90FF;
+		    }
+	
+		    #welcome-page {
+		    	text-align: center;
+		    }
+			
+
+		    #welcome-head {
+		    	font-style: oblique;
+		    	font-size: 100px;
+
+		    #begin-head {
+		    	font-style: italic;
+		    	font-size: 50px;
+		    }
+
+		    .textarea {
+			    padding: 12px 20px;
+			    margin: 8px 0;
+			    box-sizing: border-box;
+			    border: 2px solid black;
+    			border-radius: 4px;
+			    background-color: #F0FFFF;
+    			color: black;
+    			font-size: 15px;
+		    }
+
+		    #book_button {
+		    	background-color: #87CEFA;
+		    }
+		   
+			
+		</style>
+	</head>
+	<body>
+		<div style="padding: 5px">
+
+			<h1 id = "mainhead">Health Centre</h1>
+			
+			<ul>
+
+				{% if current_user.is_authenticated %}
+
+					{% if current_user.is_admin() == true %}
+
+						<li><a href="{{ url_for('view_profile_provider', name=current_user.name)}}">View profile</a></li>
+						<li><a href="{{ url_for('admin_appointments_currentpage')}}">View all appointments</a></li>
+						<li><a href="{{url_for('logout')}}"> Logout </a></li>
+
+					{% else %}
+
+					<li><a href="{{ url_for('search_page') }}">Search</a></li>
+					<li><a href="{{ url_for('view_patient_profile', name=current_user.name)}}">View profile</a></li>
+					<li><a href="{{ url_for('patient_appointments_currentpage')}}">View appointments</a></li>
+					<li><a href="{{ url_for('book_page') }}">Make a booking</a></li>
+					<li><a href="{{url_for('logout')}}"> Logout </a></li>
+
+					{% endif %}
+
+				{% else %}
+
+					<li><a href="{{url_for('login')}}"> Login </a></li>
+
+				{% endif %}
+
+
+			</ul>
+
+			{% block body %}{% endblock %}
+		<div>
+	</body>
+
+</html>

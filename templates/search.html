@@ -1,0 +1,104 @@
+{% extends 'base.html'%}
+{% block body %}
+
+<div id = searching_condition>
+	<h1> Search </h1>
+	<form action="{{url_for('search_page')}}" method = "POST">
+
+	<!--Center:--> 
+	<div>
+		<input type="radio" name="select" value="search_center" checked="checked"> <label>Search by Center: </label><br/> 
+		<input name="center" class="textboxes" placeholder="Search by Centre" value=""/>
+		<br/>
+		<br/>
+	</div>
+
+		<!--Provider:--> 
+	<div>
+		<input type="radio" name="select" value="search_provider"> <label>Search by Provider: </label><br/> 
+		<input name="provider" class="textboxes" placeholder="Search by Provider" value=""/>
+		<br/>
+		<br/>
+	</div>
+
+	<!--Location: -->
+	<input type="radio" name="select" value="search_location"> <label>Search by Location: </label><br/>
+	<select class="styled-select slate" name="loc">
+		{% for i in locations %}
+			<option value="{{i}}">{{i}}</option>
+		{% endfor %}
+	</select>
+	<br>
+	<br/>
+
+	<!--Speciality: -->
+	<input type="radio" name="select" value="search_speciality"> <label>Search by Speciality: </label><br/>
+	<select class="styled-select slate" name="sp">
+		{% for i in specialities %}
+			<option value="{{i}}">{{i}}</option>
+		{% endfor %}
+	</select>
+	<br>
+	<br>
+
+		<button class = "button" id="Search"> Search </button>
+		<br>
+		<br>
+
+	</form>
+</div>
+
+{% if provider_search %}
+	<div id="provider_search_res">
+		<h1>{{numres}}</h1><br>
+		<h3>{{message}}</h3>
+
+		<table centres="results" id="results_table">
+			<td><strong>Provider Name</strong></td>
+			<td><strong>Speciality</strong></td>
+			<td><strong>Details</strong></td>
+			
+		{% for i in correct_results2 %}
+		    <tr>
+		    	<td> {{i.get_name()}} </td>
+		    	<td> {{i.get_speciality()}} </td>
+		    	<td> <a href="{{url_for('view_profile_provider',name=i.get_name())}}"> More... </a></td>
+		    </tr>
+	    {% endfor %}
+		</table>
+
+
+	</div>
+{%else%}
+	<div id="centre_search_res">
+
+		<h1>{{numres}}</h1><br>
+		<h3>{{message}}</h3>
+
+		<table centres="results" id="results_table">
+			
+		<tr>
+			<td><strong>CenterType</strong></td>
+			<td><strong>Name</strong></td>
+			<td><strong>Phone Number</strong></td>
+			<td><strong>Location</strong></td>
+		</tr>
+		
+	    {% for i in correct_results %}
+		    <tr>
+		    	<td> {{i.get_typeof()}} </td>
+		    	<td> {{i.get_name()}} </td>
+		    	<td> {{i.get_number()}} </td>
+		    	<td> {{i.get_location()}} </td>
+		    	<td> <a href="{{url_for('view_profile',name=i.get_name())}}"> More... </a></td>
+		    </tr>
+	    {% endfor %}
+
+
+
+		</table>
+
+	</div>
+{% endif %}
+
+{% endblock %}
